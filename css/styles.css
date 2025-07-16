@@ -1,0 +1,17 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5c262;
+}
+
+.transition-all {
+    transition: all 0.3s ease-in-out;
+}
+
+#interactive-app {
+    background-color: white;
+}
+
+header,
+footer {
+    background-color: #cd451d;
+}
