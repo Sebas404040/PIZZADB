@@ -1,2 +1,2 @@
 # PIZZADB
-Aprende bases de datos con PIZZADB
+Aprende bases de datos con PIZZADB.
