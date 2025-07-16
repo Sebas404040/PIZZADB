@@ -15,3 +15,230 @@ header,
 footer {
     background-color: #cd451d;
 }
+
+.modal-enter {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+.drag-over-highlight {
+    border-style: solid !important;
+    border-color: #ef4444 !important;
+    background-color: #fee2e2 !important;
+}
+
+.shake {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.data-card {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: grab;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #e5e7eb;
+}
+
+.is-selected {
+    cursor: default;
+    opacity: 0.6;
+    background-color: #d1d5db !important;
+}
+
+.highlight-relation {
+    background-color: #a7f3d0 !important;
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.foreign-key-span {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+#canvas {
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.entity {
+    position: absolute;
+    width: 220px;
+    z-index: 20;
+    cursor: move;
+    touch-action: none;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.connector-dot {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border: 2px solid #ef4444;
+    border-radius: 50%;
+    cursor: crosshair;
+    z-index: 21;
+}
+
+.connector-dot:hover {
+    background-color: #fecaca;
+}
+
+.connector-dot.top {
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.connector-dot.bottom {
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.connector-dot.left {
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.connector-dot.right {
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#svg-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.relation-line {
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.line-correct {
+    stroke: #16a34a;
+}
+
+.line-incorrect {
+    stroke: #dc2626;
+}
+
+.line-pending {
+    stroke: #6b7280;
+}
+
+@keyframes build-pizza-crust {
+    from {
+        stroke-dashoffset: 628;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill-sauce {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes place-pepperoni {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#pizza-crust {
+    stroke-dasharray: 628;
+    stroke-dashoffset: 628;
+    animation: build-pizza-crust 1.5s ease-out forwards;
+}
+
+#pizza-sauce {
+    opacity: 0;
+    transform-origin: center;
+    animation: fill-sauce 1s 0.8s ease-in-out forwards;
+}
+
+.pepperoni {
+    opacity: 0;
+    animation: place-pepperoni 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
