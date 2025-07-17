@@ -407,3 +407,52 @@ document.addEventListener('DOMContentLoaded', () => {
     successModal.addEventListener('click', (e) => { if (e.target === successModal) hideModal(); });
     resetBtn.addEventListener('click', resetCanvas);
 })();
+
+// Activar el primer paso al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('step-container')) {
+        goToStep(1);
+    }
+});
+
+// --- Lógica de navegación con animación de carga ---
+let currentStep = 1;
+
+function goToStepWithMenuClose(stepNumber) {
+    for (let i = 1; i <= 4; i++) {
+        const menu = document.getElementById(`mobile-menu-${i}`);
+        if (menu && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+        }
+    }
+    setTimeout(() => {
+        goToStep(stepNumber);
+    }, 100);
+}
+
+
+function goToStep(stepNumber) {
+    if (stepNumber === currentStep && document.getElementById(`step-${stepNumber}`)) {
+        return;
+    }
+
+    const loader = document.getElementById('loader-overlay');
+    const stepSections = document.querySelectorAll('.step-section');
+
+    loader.classList.remove('hidden');
+
+    setTimeout(() => {
+        stepSections.forEach(section => {
+            section.classList.add('hidden');
+        });
+
+        const targetStep = document.getElementById(`step-${stepNumber}`);
+        if (targetStep) {
+            targetStep.classList.remove('hidden');
+            window.scrollTo(0, 0);
+            currentStep = stepNumber;
+        }
+
+        loader.classList.add('hidden');
+    }, 700);
+}
