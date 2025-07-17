@@ -215,3 +215,195 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === explanationModal) explanationModal.classList.add('hidden');
     });
 })();
+
+// --- JS del Paso 4 ---
+(() => {
+    const step4_section = document.getElementById('step-4');
+    if (!step4_section) return;
+
+    let toolboxEntities = step4_section.querySelectorAll('#toolbox-step4 [draggable="true"]');
+    let canvas = document.getElementById('canvas');
+    let svgCanvas = document.getElementById('svg-canvas');
+    let checkBtn = document.getElementById('check-btn-step4');
+    let resetBtn = document.getElementById('reset-btn-step4');
+    let canvasPlaceholder = document.getElementById('canvas-placeholder');
+    let successModal = document.getElementById('success-modal-step4');
+    let modalContent = document.getElementById('modal-content-step4');
+    let closeModalBtn = document.getElementById('close-modal-btn-step4');
+
+    const entityData = {
+        CLIENTE: { color: 'bg-blue-500', attributes: ['<strong>ID_Cliente:</strong> 1', '<strong>Nombre:</strong> Ana Torres', '<strong>Teléfono:</strong> 3001234567'] },
+        PEDIDO: { color: 'bg-purple-500', attributes: ['<strong>ID_Pedido:</strong> 101', '<strong>ID_Cliente:</strong> 1', '<strong>Fecha:</strong> 2025-07-14'] },
+        PIZZA: { color: 'bg-green-500', attributes: ['<strong>ID_Pizza:</strong> 5', '<strong>Nombre:</strong> Hawaiana', '<strong>Precio:</strong> $28,000'] }
+    };
+
+    let entitiesOnCanvas = {}, isDrawing = false, startConnector = null, tempLine = null, connections = [];
+
+    toolboxEntities.forEach(entity => {
+        entity.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', entity.dataset.entity));
+    });
+
+    canvas.addEventListener('dragover', e => e.preventDefault());
+    canvas.addEventListener('drop', e => {
+        e.preventDefault();
+        const entityName = e.dataTransfer.getData('text/plain');
+        if (!entitiesOnCanvas[entityName]) {
+            canvasPlaceholder.style.display = 'none';
+            createEntityOnCanvas(entityName, e.clientX, e.clientY);
+        }
+    });
+
+    function createEntityOnCanvas(name, clientX, clientY) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const data = entityData[name];
+        const entity = document.createElement('div');
+        entity.id = `entity-${name}`;
+        entity.className = 'entity';
+        entity.style.left = `${clientX - canvasRect.left - 110}px`;
+        entity.style.top = `${clientY - canvasRect.top - 70}px`;
+        let innerHTML = `<div class="${data.color} text-white p-3 text-center font-bold">${name}</div><div class="bg-white p-3"><ul class="text-sm space-y-1 text-stone-700">`;
+        data.attributes.forEach(attr => { innerHTML += `<li>${attr}</li>`; });
+        innerHTML += `</ul></div>`;
+        entity.innerHTML = innerHTML;
+        ['top', 'bottom', 'left', 'right'].forEach(pos => {
+            const dot = document.createElement('div');
+            dot.className = `connector-dot ${pos}`;
+            dot.dataset.entity = name;
+            entity.appendChild(dot);
+        });
+        canvas.appendChild(entity);
+        entitiesOnCanvas[name] = entity;
+        makeDraggable(entity);
+    }
+
+    function makeDraggable(element) {
+        element.addEventListener('mousedown', e => {
+            if (e.target.classList.contains('connector-dot')) return;
+            let offsetX = e.clientX - element.getBoundingClientRect().left;
+            let offsetY = e.clientY - element.getBoundingClientRect().top;
+            function onMouseMove(e) {
+                const canvasRect = canvas.getBoundingClientRect();
+                element.style.left = `${e.clientX - canvasRect.left - offsetX}px`;
+                element.style.top = `${e.clientY - canvasRect.top - offsetY}px`;
+                updateConnections();
+            }
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    }
+
+    canvas.addEventListener('mousedown', e => {
+        if (e.target.classList.contains('connector-dot')) {
+            isDrawing = true;
+            startConnector = e.target;
+            canvas.style.cursor = 'crosshair';
+            const startCoords = getConnectorCoords(startConnector);
+            tempLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            tempLine.setAttribute('x1', startCoords.x); tempLine.setAttribute('y1', startCoords.y);
+            tempLine.setAttribute('x2', startCoords.x); tempLine.setAttribute('y2', startCoords.y);
+            tempLine.classList.add('relation-line', 'line-pending');
+            svgCanvas.appendChild(tempLine);
+            document.addEventListener('mousemove', onDrawing);
+            document.addEventListener('mouseup', onEndDrawing);
+        }
+    });
+
+    function onDrawing(e) {
+        if (!isDrawing) return;
+        const canvasRect = canvas.getBoundingClientRect();
+        tempLine.setAttribute('x2', e.clientX - canvasRect.left);
+        tempLine.setAttribute('y2', e.clientY - canvasRect.top);
+    }
+
+    function onEndDrawing(e) {
+        if (!isDrawing) return;
+        isDrawing = false;
+        canvas.style.cursor = 'default';
+        document.removeEventListener('mousemove', onDrawing);
+        document.removeEventListener('mouseup', onEndDrawing);
+        if (e.target.classList.contains('connector-dot') && e.target !== startConnector) {
+            const endConnector = e.target;
+            const endCoords = getConnectorCoords(endConnector);
+            tempLine.setAttribute('x2', endCoords.x);
+            tempLine.setAttribute('y2', endCoords.y);
+            connections.push({ from: startConnector, to: endConnector, line: tempLine });
+        } else {
+            tempLine.remove();
+        }
+        tempLine = null; startConnector = null;
+    }
+
+    function getConnectorCoords(connector) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const connectorRect = connector.getBoundingClientRect();
+        return {
+            x: connectorRect.left + connectorRect.width / 2 - canvasRect.left,
+            y: connectorRect.top + connectorRect.height / 2 - canvasRect.top
+        };
+    }
+
+    function updateConnections() {
+        connections.forEach(conn => {
+            const startCoords = getConnectorCoords(conn.from);
+            const endCoords = getConnectorCoords(conn.to);
+            conn.line.setAttribute('x1', startCoords.x); conn.line.setAttribute('y1', startCoords.y);
+            conn.line.setAttribute('x2', endCoords.x); conn.line.setAttribute('y2', endCoords.y);
+        });
+    }
+
+    checkBtn.addEventListener('click', () => {
+        const correctConnections = new Set(['CLIENTE-PEDIDO', 'PEDIDO-PIZZA']);
+        const userConnections = new Set(connections.map(c => [c.from.dataset.entity, c.to.dataset.entity].sort().join('-')));
+        let allCorrect = true;
+
+        connections.forEach(conn => {
+            const connectionKey = [conn.from.dataset.entity, conn.to.dataset.entity].sort().join('-');
+            if (correctConnections.has(connectionKey)) {
+                conn.line.classList.remove('line-pending', 'line-incorrect');
+                conn.line.classList.add('line-correct');
+            } else {
+                conn.line.classList.remove('line-pending', 'line-correct');
+                conn.line.classList.add('line-incorrect');
+                allCorrect = false;
+            }
+        });
+
+        if (userConnections.size !== correctConnections.size) allCorrect = false;
+
+        if (allCorrect && Object.keys(entitiesOnCanvas).length === 3) {
+            showModal();
+        } else {
+            alert('¡Casi! Revisa tus conexiones. Recuerda: un cliente hace un pedido, y un pedido contiene pizzas.');
+        }
+    });
+
+    function showModal() {
+        successModal.classList.remove('hidden');
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function hideModal() {
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => successModal.classList.add('hidden'), 300);
+    }
+
+    function resetCanvas() {
+        canvas.innerHTML = `<svg id="svg-canvas"></svg><p id="canvas-placeholder" class="absolute inset-0 flex items-center justify-center text-stone-400 text-2xl font-semibold">Arrastra las entidades aquí</p>`;
+        svgCanvas = document.getElementById('svg-canvas');
+        canvasPlaceholder = document.getElementById('canvas-placeholder');
+        entitiesOnCanvas = {}; connections = []; isDrawing = false;
+        startConnector = null; tempLine = null;
+    }
+
+
+    closeModalBtn.addEventListener('click', hideModal);
+    successModal.addEventListener('click', (e) => { if (e.target === successModal) hideModal(); });
+    resetBtn.addEventListener('click', resetCanvas);
+})();
