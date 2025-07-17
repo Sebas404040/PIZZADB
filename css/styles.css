@@ -32,6 +32,7 @@ footer {
     }
 }
 
+/* Drag & Drop */
 .dragging {
     opacity: 0.5;
     transform: scale(0.95);
@@ -40,7 +41,9 @@ footer {
 .drag-over-highlight {
     border-style: solid !important;
     border-color: #ef4444 !important;
+    /* red-500 */
     background-color: #fee2e2 !important;
+    /* red-100 */
 }
 
 .shake {
@@ -80,6 +83,7 @@ footer {
     border: 1px solid #e5e7eb;
 }
 
+/* Relaciones */
 .is-selected {
     cursor: default;
     opacity: 0.6;
@@ -99,6 +103,7 @@ footer {
     text-decoration-style: dotted;
 }
 
+/* Lienzo ERD */
 #canvas {
     position: relative;
     background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
@@ -122,6 +127,7 @@ footer {
     height: 1rem;
     background-color: white;
     border: 2px solid #ef4444;
+    /* red-500 */
     border-radius: 50%;
     cursor: crosshair;
     z-index: 21;
@@ -131,6 +137,7 @@ footer {
     background-color: #fecaca;
 }
 
+/* red-200 */
 .connector-dot.top {
     top: -8px;
     left: 50%;
@@ -181,6 +188,7 @@ footer {
     stroke: #6b7280;
 }
 
+/* Estilos para las animaciones */
 @keyframes build-pizza-crust {
     from {
         stroke-dashoffset: 628;
@@ -232,6 +240,7 @@ footer {
     animation: place-pepperoni 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
+/* Animaciones para el scroll */
 .fade-in-section {
     opacity: 0;
     transform: translateY(20px);
@@ -241,4 +250,32 @@ footer {
 .fade-in-section.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* <!-- Estilos para la animación de carga --> */
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.pizza-spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid #fde8e8;
+    border-top-color: #ef4444;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
