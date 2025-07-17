@@ -224,13 +224,8 @@ En el siguiente video, nuestro equipo presenta el proyecto, explica el contenido
 ## 👥 Integrantes y Roles
 
   
-
 | Nombre del Integrante | Rol en el Equipo | GitHub |
-
-| :-------------------- | :--------------- | :----- |
-
-| [Joan Sebastián Gómez] | Product Owner | [@Sebas404040](https://github.com/Sebas404040) |
-
-| [Sergio Lievano] | SCRUM Master | [@sergiosteven66](https://github.com/sergiosteven66) |
-
-| [Bryan Villabona] | Desarrollador | [@BryanVillabona](https://github.com/BryanVillabona) |
+|---|---|---|
+| Joan Sebastián Gómez | Product Owner | [@Sebas404040](https://github.com/Sebas404040)|
+| Sergio Lievano | SCRUM Master | [@sergiosteven66](https://github.com/sergiosteven66)|
+| Bryan Villabona | Desarrollador | [@BryanVillabona](https://github.com/BryanVillabona)|
