@@ -163,9 +163,11 @@ Simplemente abre el archivo `index.html` (o el archivo principal de tu proyecto)
 ```
 PIZZADB/
 
-├── index.html # Página principal del aplicativo
 ├── css/
 │     └── styles.css # Estilos personalizados
+├── Docs/
+│     ├── Documentation.pdf # Documentación detallada del aplicativo web
+│	  └── Software Requeriments Specification  # Especificación de requisitos del software
 ├── js/
 │     ├── main.js # Lógica principal de la aplicación para content.html
 │	  └── index.js  # Lógica principal de la aplicación para index.html
@@ -176,6 +178,8 @@ PIZZADB/
 │	  └──  pepperoni.png # imagen para tarjetas
 ├── html/
 │	  └──  content.html # página interactiva
+├── index.html # Página principal del aplicativo
+├── Bitacora.md
 └── README.md
 ```
   
