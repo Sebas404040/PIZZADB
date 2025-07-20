@@ -204,24 +204,7 @@ Utilizamos un tablero Kanban (en ClickUp) para visualizar el flujo de trabajo, d
 
 Para visualizar mejor el tablero kanban, ingresa al siguiente link:
 **Link de ClickUp**: [Ver tablero](https://sharing.clickup.com/90131987169/b/h/6-901316334983-2/770ee9b485479c3)  
-
-  
-
----
-
-  
-
-## 📹 Video Explicativo
-
-  
-
-En el siguiente video, nuestro equipo presenta el proyecto, explica el contenido teórico y demuestra el funcionamiento de la aplicación **PizzaDB**.
-
-  
-
-[**Ver Video en YouTube**](https://[ENLACE-A-TU-VIDEO])
-
-  
+ 
 
 ---
 
