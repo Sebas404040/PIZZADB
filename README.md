@@ -208,6 +208,15 @@ Para visualizar mejor el tablero kanban, ingresa al siguiente link:
 
 ---
 
+### Documentación
+
+Si deseas visualizar la documentación detallada de este proyecto, ingresa al siguiente link:
+
+[Ver documentación](https://drive.google.com/drive/folders/11lfkGiQkj-KglcibZwDoBkjRRrlusS-L?usp=sharing)  
+ 
+
+---
+
 ## 👥 Integrantes y Roles
 
   
