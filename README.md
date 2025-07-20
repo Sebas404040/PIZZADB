@@ -161,7 +161,7 @@ Simplemente abre el archivo `index.html` (o el archivo principal de tu proyecto)
 ## Estructura de Archivos
 
 ```
-World-Wide-Shop/
+PIZZADB/
 
 ├── index.html # Página principal del aplicativo
 ├── css/
@@ -226,6 +226,6 @@ En el siguiente video, nuestro equipo presenta el proyecto, explica el contenido
   
 | Nombre del Integrante | Rol en el Equipo | GitHub |
 |---|---|---|
-| Joan Sebastián Gómez | Product Owner | [@Sebas404040](https://github.com/Sebas404040)|
-| Sergio Lievano | SCRUM Master | [@sergiosteven66](https://github.com/sergiosteven66)|
+| Joan Sebastián Gómez | SCRUM Master | [@Sebas404040](https://github.com/Sebas404040)|
+| Sergio Lievano | Product Owner | [@sergiosteven66](https://github.com/sergiosteven66)|
 | Bryan Villabona | Desarrollador | [@BryanVillabona](https://github.com/BryanVillabona)|

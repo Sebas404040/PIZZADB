@@ -133,8 +133,7 @@ class="inline-block bg-red-600 text-white font-bold text-lg py-3 px-8 rounded-lg
 </svg>
 </div>
 </div>
-</section>// Constante que contiene el API 
-const API_URL = "https://fakestoreapi.com/products"
+</section>
 ```
 
  Utiliza TailwindCSS para los estilos y una fuente moderna desde Google Fonts. La interfaz incluye un encabezado con navegación, una sección de bienvenida con una ilustración SVG de pizza, y una sección educativa donde se explican conceptos clave como "Datos", "Tablas" y "Relaciones", cada uno representado visualmente como ingredientes, menús y pedidos, respectivamente. También se incluye un pie de página con los créditos de los desarrolladores. Todo el diseño es responsivo, accesible y pensado para facilitar la comprensión de temas técnicos de forma lúdica y visual. Además, el documento carga estilos personalizados y un script JavaScript (index.js) que puede añadir interactividad adicional.
