@@ -204,11 +204,18 @@ Utilizamos un tablero Kanban (en ClickUp) para visualizar el flujo de trabajo, d
 
 Para visualizar mejor el tablero kanban, ingresa al siguiente link:
 **Link de ClickUp**: [Ver tablero](https://sharing.clickup.com/90131987169/b/h/6-901316334983-2/770ee9b485479c3)  
- 
 
 ---
 
-### Documentación
+### 🎥 Video Explicativo
+
+En el siguiente video, presentamos al equipo, explicamos el contenido teórico y demostramos el funcionamiento de nuestra aplicación.
+
+▶️ [**Ver Video**](https://drive.google.com/file/d/19IBMf2VF2xiq9tnTisGOp_Wi_tVF1kYa/view?usp=sharing)
+
+---
+
+## Documentación
 
 Si deseas visualizar la documentación detallada de este proyecto, ingresa al siguiente link:
 
